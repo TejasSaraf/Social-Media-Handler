@@ -1,0 +1,75 @@
+ Code Form Project file /// To be Used Later 
+ 
+ @if ($projectRequests->count() > 0)
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Message</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($projectRequests as $projectRequest)
+                    <tr>
+                        <td>{{ $projectRequest->message }}</td>
+                        <td>{{ $projectRequest->status }}</td>
+                        <td>{{ $projectRequest->created_at->diffForHumans() }}</td>
+                        <td>
+                            @if ($projectRequest->status === 'pending')
+                                <form action="{{ route('project-requests.update', $projectRequest) }}" method="POST">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" class="btn btn-success">Accept</button>
+                                </form>
+                                <form action="{{ route('project-requests.update', $projectRequest) }}" method="POST">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit" class="btn btn-danger">Reject</button>
+                                </form>
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        {{ $projectRequests->links() }}
+    @else
+        <p>No project requests.</p>
+    @endif
+
+
+
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscription</title>
+</head>
+<body>
+    <h2>Subscription</h2>
+    <label for="Current Status">
+        Current Status:
+    </label>
+    <br>
+    <label for="Subcription Plan">
+        Subcription Plan:
+    </label>
+    <br>
+    <label for="Subcription Start">
+        Subcription Start:
+    </label>
+    <br>
+    <label for="Renewal Date">
+        Renewal Date:
+    </label>
+    <br>
+    <a href="http://127.0.0.1:8000/Upgrade"> Upgrade </a href> 
+    <a href="http://127.0.0.1:8000/Upgrade"> Change Plan </a href>
+    <a href="http://127.0.0.1:8000/Cancel"> Cancel Membership</a href>
+</body>
+</html>
